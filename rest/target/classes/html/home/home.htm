@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>layuiAdmin 主页示例模板一</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
+  <link rel="stylesheet" href="${rc.contextPath}/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+      <div class="layui-col-sm5 layui-col-md2">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            	总项目量(已签订)
+            <span class="layui-badge layui-bg-blue layuiadmin-badge">年</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font"><#if homeData??>${homeData.projectNum!'0'}<#else>0</#if></p>
+            <p>
+              	总项目量(已签订)
+              <span class="layuiadmin-span-color"><#if homeData??>${homeData.projectNum!'0'}<#else>0</#if> <i class="layui-inline layui-icon layui-icon-flag"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-sm3 layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            	总销售额
+            <span class="layui-badge layui-bg-blue layuiadmin-badge">年</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font"><#if homeData??>${homeData.marketPrice!'0'}<#else>0</#if></p>
+            <p>
+              	总销售额
+              <span class="layuiadmin-span-color"><#if homeData??>${homeData.marketPrice!'0'}<#else>0</#if> <i class="layui-inline layui-icon layui-icon-flag"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-sm3 layui-col-md2">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            	总采购额
+            <span class="layui-badge layui-bg-blue layuiadmin-badge">年</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font"><#if homeData??>${homeData.buyPrice!'0'}<#else>0</#if></p>
+            <p>
+              	总采购额
+              <span class="layuiadmin-span-color"><#if homeData??>${homeData.buyPrice!'0'}<#else>0</#if> <i class="layui-inline layui-icon layui-icon-flag"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-sm3 layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            	已收款
+            <span class="layui-badge layui-bg-blue layuiadmin-badge">年</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font"><#if homeData??>${homeData.receiptMoney!'0'}<#else>0</#if></p>
+            <p>
+              	已收款
+              <span class="layuiadmin-span-color"><#if homeData??>${homeData.receiptMoney!'0'}<#else>0</#if> <i class="layui-inline layui-icon layui-icon-flag"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-sm3 layui-col-md2">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            	已支付
+            <span class="layui-badge layui-bg-blue layuiadmin-badge">年</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font"><#if homeData??>${homeData.accountPaid!'0'}<#else>0</#if></p>
+            <p>
+              	已支付
+              <span class="layuiadmin-span-color"><#if homeData??>${homeData.accountPaid!'0'}<#else>0</#if> <i class="layui-inline layui-icon layui-icon-flag"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- 最近项目begin -->
+      <div class="layui-col-sm3 layui-col-md8">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            	最近项目
+            <span class="layui-badge layui-bg-blue layuiadmin-badge">年</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <table class="layui-hide" id="test-table1" lay-filter="test-table-reload"></table> 
+          </div>
+        </div>
+      </div>
+      <!-- 最近项目end -->
+      
+      <!-- 客户成交排行begin -->
+      <div class="layui-col-sm3 layui-col-md4">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            	客户成交排行
+            <span class="layui-badge layui-bg-blue layuiadmin-badge">年</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <table class="layui-hide" id="test-table2" lay-filter="test-table-reload"></table> 
+          </div>
+        </div>
+      </div>
+      <!-- 客户成交排行end -->
+      
+      <!-- 待审核的项目begin -->
+      <div class="layui-col-sm3 layui-col-md8">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            	待签订项目
+            <span class="layui-badge layui-bg-blue layuiadmin-badge">年</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <table class="layui-hide" id="test-table3" lay-filter="test-table-reload"></table> 
+          </div>
+        </div>
+      </div>
+      <!-- 待审核的项目end -->
+      
+      <!-- 审核通过的项目begin -->
+      <div class="layui-col-sm3 layui-col-md8">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            	已签订项目
+            <span class="layui-badge layui-bg-blue layuiadmin-badge">年</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <table class="layui-hide" id="test-table4" lay-filter="test-table-reload"></table> 
+          </div>
+        </div>
+      </div>
+      <!-- 审核通过的项目end -->
+      
+    </div>
+  </div>
+  <script src="${rc.contextPath}/layuiadmin/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '${rc.contextPath}/layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'table', 'sample'],function(){
+	  var table = layui.table;
+	  var $ = layui.$;
+	  var form = layui.form;
+	  var admin = layui.admin;
+	  
+/* 	  layer.open({
+	        type: 1
+	        ,title: false //不显示标题栏
+	        ,closeBtn: false 
+	        ,area: '300px;'
+	        ,shade: 0.8
+	        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+	        ,btn: ['立即查看', '稍后再说']
+	        ,btnAlign: 'c'
+	        ,moveType: 1 //拖拽模式，0或者1
+	        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #ff483c; color: #fff; font-weight: 300;">尊敬的用户，你好！<br><br>您有新的待办事项<br><br>请尽快处理 ^_^</div>'
+	        ,success: function(layero){
+	          var btn = layero.find('.layui-layer-btn');
+	          btn.find('.layui-layer-btn0').attr({
+	            href: 'http://www.layui.com/'
+	            ,target: '_blank'
+	          });
+	        }
+	      }); */
+	  
+	    //方法级渲染
+	    table.render({
+	      elem: '#test-table1'
+	      ,url: "${rc.contextPath}/nrcProjectData/getData?orderBy=GMT_MODIFY DESC"
+	      ,cols: [[
+			 {field:'id',align:'center', title: '序号', width:80, templet:'#zizeng'}
+	         ,{field:'name',align:'center', title: '项目名称'}
+	         ,{field:'code',align:'center', title: '编号'}
+	         ,{field:'principal',align:'center', title: '负责人'}
+	         ,{field:'extension',align:'center', title: '客户'}
+	         ,{field:'signedDate',align:'center', title: '签订时间'}
+	         ,{field:'create',align:'center', title: '创建时间'}
+	      ]]
+	      ,loading:true
+	    });
+	    
+	  //方法级渲染
+	    table.render({
+	      elem: '#test-table2'
+	      ,url: "${rc.contextPath}/nrcContractData/queryHomeData"
+	      ,cols: [[
+			 {field:'id',align:'center', title: '序号', width:80, templet:'#zizeng'}
+	         ,{field:'firstParty',align:'center', title: '客户名称'}
+	         ,{field:'extension',align:'center', title: '成交量'}
+	         ,{field:'totalPrice',align:'center', title: '成交金额'}
+	      ]]
+	      ,loading:true
+	    });
+	  
+		  //方法级渲染
+	    table.render({
+	      elem: '#test-table3'
+	      ,url: "${rc.contextPath}/nrcProjectData/queryNrcProject?type=1"
+	      ,cols: [[
+			 {field:'id',align:'center', title: '序号', width:80, templet:'#zizeng'}
+	         ,{field:'name',align:'center', title: '项目名称'}
+	         ,{field:'code',align:'center', title: '编号'}
+	         ,{field:'principal',align:'center', title: '负责人'}
+	         ,{field:'extension',align:'center', title: '客户'}
+	         ,{field:'signedDate',align:'center', title: '签订时间'}
+	         ,{field:'create',align:'center', title: '创建时间'}
+	      ]]
+	      ,loading:true
+	    });
+		  
+		  //方法级渲染
+	    table.render({
+	      elem: '#test-table4'
+	      ,url: "${rc.contextPath}/nrcProjectData/queryNrcProject?type=2"
+	      ,cols: [[
+			 {field:'id',align:'center', title: '序号', width:80, templet:'#zizeng'}
+	         ,{field:'name',align:'center', title: '项目名称'}
+	         ,{field:'code',align:'center', title: '编号'}
+	         ,{field:'principal',align:'center', title: '负责人'}
+	         ,{field:'extension',align:'center', title: '客户'}
+	         ,{field:'signedDate',align:'center', title: '签订时间'}
+	         ,{field:'create',align:'center', title: '创建时间'}
+	      ]]
+	      ,loading:true
+	    });
+  });
+  </script>
+  <script type="text/html" id="zizeng">
+    {{d.LAY_TABLE_INDEX+1}}
+ </script>
+</body>
+</html>

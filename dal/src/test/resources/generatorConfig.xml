@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+
+		<property name="javaFileEncoding" value="UTF-8" />
+
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</plugin>
+
+		<plugin type="com.netfinworks.tool.mybatis.plugin.ColumnRemarkPlugin" />
+
+		<plugin type="com.netfinworks.tool.mybatis.plugin.DomainClassPlugin">
+			<property name="tableNames" value="*" /><!--需要生成Domain的表名,多个表用逗号分隔 -->
+			<property name="defaultPackage" value="com.dnt.cloud.pitch.domain" /><!--默认的包名 -->
+			<property name="generateConverter" value="true" />
+			<property name="outputDir" value="src\main\java" /><!--输出路径 -->
+			<property name="defaultExcludeFields" value="memo,gmtModify,gmtCreate"/><!--不需要生成到domain中的属性名-->
+			<property name="rootClass" value="BaseDomain" /><!--默认继承的父类 -->
+			<property name="imports"
+				value="com.dnt.cloud.common.domain.BaseDomain" />
+		</plugin>
+
+		<plugin
+			type="com.netfinworks.tool.mybatis.plugin.MapperPackageRenamePlugin">
+			<property name="searchString" value="Mapper$"></property>
+			<property name="replaceString" value="DAO"></property>
+		</plugin>
+
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+			<property name="addRemarkComments" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1:3306/student" userId="studentuser"
+			password="studentuser" />
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetProject="src\main\java"
+			targetPackage="com.dnt.cloud.student.model">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetProject="src\main\resources\META-INF\sqlmap"
+			targetPackage="mysql">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator targetProject="src\main\java"
+			type="XMLMAPPER" targetPackage="com.dnt.cloud.student.dao">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<table schema="" tableName="NRC_PARENTS" domainObjectName="NrcParents"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<!-- <table schema="" tableName="NRC_USER" domainObjectName="NrcUser"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<table schema="" tableName="NRC_USER_ROLE" domainObjectName="NrcUserRole"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<table schema="" tableName="NRC_ROLE_RESOUCE" domainObjectName="NrcRoleResouce"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<table schema="" tableName="NRC_ROLE" domainObjectName="NrcRole"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<table schema="" tableName="NRC_RESOURCE" domainObjectName="NrcResource"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<table schema="" tableName="NRC_CLASS" domainObjectName="NrcClass"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<table schema="" tableName="NRC_TEACH" domainObjectName="NrcTeach"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<table schema="" tableName="NRC_TEACH_CLASS" domainObjectName="NrcTeachClass"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<table schema="" tableName="NRC_STUDENT" domainObjectName="NrcStudent"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<table schema="" tableName="NRC_PARENT" domainObjectName="NrcParent"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<table schema="" tableName="NRC_STUDENT_PARENT" domainObjectName="NrcStudentParent"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table>
+		<table schema="" tableName="NRC_GRADE" domainObjectName="NrcGrade"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+		</table> -->
+	</context>
+</generatorConfiguration>

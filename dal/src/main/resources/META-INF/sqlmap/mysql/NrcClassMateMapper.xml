@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dnt.cloud.student.dao.NrcClassMateDAO">
+  <resultMap id="BaseResultMap" type="com.dnt.cloud.student.model.NrcClassMate">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="PERIOD" jdbcType="VARCHAR" property="period" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="TEACH_NAME" jdbcType="VARCHAR" property="teachName" />
+    <result column="TEACH_ID" jdbcType="BIGINT" property="teachId" />
+    <result column="NUM" jdbcType="BIGINT" property="num" />
+    <result column="OPERATOR" jdbcType="VARCHAR" property="operator" />
+    <result column="GMT_CREATE" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="GMT_MODIFY" jdbcType="TIMESTAMP" property="gmtModify" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, PERIOD, NAME, TEACH_NAME, TEACH_ID, NUM, OPERATOR, GMT_CREATE, GMT_MODIFY
+  </sql>
+  <select id="selectByExample" parameterType="com.dnt.cloud.student.model.NrcClassMateCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from nrc_class_mate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nrc_class_mate
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from nrc_class_mate
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dnt.cloud.student.model.NrcClassMateCriteria">
+    delete from nrc_class_mate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dnt.cloud.student.model.NrcClassMate">
+    insert into nrc_class_mate (ID, PERIOD, NAME, 
+      TEACH_NAME, TEACH_ID, NUM, 
+      OPERATOR, GMT_CREATE, GMT_MODIFY
+      )
+    values (#{id,jdbcType=BIGINT}, #{period,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{teachName,jdbcType=VARCHAR}, #{teachId,jdbcType=BIGINT}, #{num,jdbcType=BIGINT}, 
+      #{operator,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dnt.cloud.student.model.NrcClassMate">
+    insert into nrc_class_mate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="period != null">
+        PERIOD,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="teachName != null">
+        TEACH_NAME,
+      </if>
+      <if test="teachId != null">
+        TEACH_ID,
+      </if>
+      <if test="num != null">
+        NUM,
+      </if>
+      <if test="operator != null">
+        OPERATOR,
+      </if>
+      <if test="gmtCreate != null">
+        GMT_CREATE,
+      </if>
+      <if test="gmtModify != null">
+        GMT_MODIFY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teachName != null">
+        #{teachName,jdbcType=VARCHAR},
+      </if>
+      <if test="teachId != null">
+        #{teachId,jdbcType=BIGINT},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=BIGINT},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dnt.cloud.student.model.NrcClassMate">
+    update nrc_class_mate
+    <set>
+      <if test="period != null">
+        PERIOD = #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teachName != null">
+        TEACH_NAME = #{teachName,jdbcType=VARCHAR},
+      </if>
+      <if test="teachId != null">
+        TEACH_ID = #{teachId,jdbcType=BIGINT},
+      </if>
+      <if test="num != null">
+        NUM = #{num,jdbcType=BIGINT},
+      </if>
+      <if test="operator != null">
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        GMT_CREATE = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        GMT_MODIFY = #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dnt.cloud.student.model.NrcClassMate">
+    update nrc_class_mate
+    set PERIOD = #{period,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      TEACH_NAME = #{teachName,jdbcType=VARCHAR},
+      TEACH_ID = #{teachId,jdbcType=BIGINT},
+      NUM = #{num,jdbcType=BIGINT},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      GMT_CREATE = #{gmtCreate,jdbcType=TIMESTAMP},
+      GMT_MODIFY = #{gmtModify,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

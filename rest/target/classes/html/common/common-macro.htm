@@ -1,0 +1,23 @@
+<#macro select enum name value="" required="false">
+<select id="${name}" name="${name}" lay-verify="${name}" class="layui-input"  style="width:157px;height:35px" lay-search="">
+	<#if required?? && required=="false">
+		<option value="">请选择</option>
+	</#if>
+   <#list JDKEnumUtil.getEnumList('${enum}') as enumData>
+		<option value="${enumData.code}" <#if enumData.code='${value}'>selected="selected"</#if> >${enumData.message}
+		</option>
+    </#list>
+</select>
+</#macro>
+
+<#macro radio enum name value="">
+   <#list enums['${enum}']?values as enumData>
+		<input type="radio" <#if enumData.code='${value}'>checked</#if> required name="${name}" value="${enumData.code}"><span>${enumData.message}</span>
+    </#list>
+</#macro>
+
+<#macro list enum value="">
+	<#list JDKEnumUtil.getEnumList('${enum}') as enumData>
+		<#if enumData.code='${value}'> ${enumData.message}</#if>
+    </#list>
+</#macro>

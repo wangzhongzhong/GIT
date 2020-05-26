@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.dnt.nrc</groupId>
+		<artifactId>nrc-cloud-student-root</artifactId>
+		<version>1.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>cloud-student-service</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.dnt.nrc</groupId>
+			<artifactId>cloud-student-dal</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.dnt.nrc</groupId>
+			<artifactId>cloud-student-domain</artifactId>
+		</dependency>
+       	<!-- 提供基础的web集成的功能，在web项目中提供Spring容器 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency> 
+        <dependency> 
+			<groupId>com.github.binarywang</groupId> 
+			<artifactId>java-emoji-converter</artifactId> 
+			<version>0.1.1</version> 
+		</dependency>
+		<!-- dom4j -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+		</dependency>
+	</dependencies>
+
+</project>

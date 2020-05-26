@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>用户登录</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <!-- 解决session跳转问题(layui退出登录)---> 
+  <script language="JavaScript">if (window != top) {top.location.href = location.href}</script>
+  <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
+  <link rel="stylesheet" href="${rc.contextPath}/layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="${rc.contextPath}/layuiadmin/style/login.css" media="all">
+</head>
+<style>
+#LAY-user-login{
+	background-image: url("${rc.contextPath}/images/oaLogin/bg.png");
+	background-size:100%;
+	background-repeat: no repeat;
+}
+.layui-input,  .layui-textarea {
+	width:390px;
+    height: 54px;
+    line-height: 1.3;
+    line-height: 38px\9;
+    border-width: 0px;
+    border-style: solid;
+    background-image: url("${rc.contextPath}/images/login/input.png");
+    border-radius: 2px;
+}
+.layui-input1{
+	width:350px;
+    height: 54px;
+    line-height: 38px\9;
+    border-width: 1px;
+    border-style: solid;
+    border-color:#eceff0;
+    background-size:100%;
+	background-repeat: no repeat;
+    border-radius: 2px;
+    padding-left:38px;
+    
+}
+.layadmin-user-login-icon {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 38px;
+    line-height: 48px;
+    text-align: center;
+    color: #d2d2d2;
+}
+#subBtn{
+	 background-image: url("${rc.contextPath}/images/oaLogin/subBtn.png");
+	 width: 390px;
+     height: 54px;
+}
+.layui-btn {
+    display: inline-block;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 18px;
+    background-color: #009688;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 24px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+/* .layui-icon-username{
+	background-image: url("${rc.contextPath}/images/oaLogin/userName.png");
+	background-size:100%;
+	background-repeat: no repeat;
+} */
+.layui-icon-username:before {
+    color: #1e9fff;
+}
+.layui-icon-password:before {
+    color: #1e9fff;
+}
+</style>
+<body>
+  <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
+	<div id="middleDiv" style="position: absolute;margin-left: 1080px;">
+  		<img src="${rc.contextPath}/images/oaLogin/ground.png" style="width: 600px;">
+  	</div> 
+	<div id="textDiv" style="position: absolute;margin-left: 1250px;margin-top: 120px;">
+  		<h2 style="font-size: 26px;font-weight: bold;text-align: center;margin: 0px 0px 0px 45px;">学生管理系统</h2>
+  		<!-- <img src="${rc.contextPath}/images/oaLogin/title.png" style="width: 200px;"> -->
+  	</div>
+    <div class="layadmin-user-login-main">
+      <div class="layadmin-user-login-box layadmin-user-login-body layui-form" style="position: absolute;margin-left: 1180px;margin-top:220px;width: 375px;">
+        <div class="layui-form-item">
+          <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+          <input type="text" name="loginName" id="LAY-user-login-username" lay-verify="required" placeholder="用户名" class="layui-input1">
+        </div>
+        <div class="layui-form-item" style="margin-top: 32px;">
+          <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password" style="border: 1px;border-color:#eceff0; "></label>
+          <input type="password" name="pwd" id="LAY-user-login-password" lay-verify="required" placeholder="密码" class="layui-input1">
+        </div>
+        <div class="layui-form-item" style="margin-top: 62px;">
+          <button id="subBtn" class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登录</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="${rc.contextPath}/layuiadmin/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '${rc.contextPath}/layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'user'], function(){
+    var $ = layui.$
+    ,setter = layui.setter
+    ,admin = layui.admin
+    ,form = layui.form
+    ,router = layui.router()
+    ,search = router.search;
+
+    form.render();
+    
+    
+    $('body').keydown(function () {
+        if(event.keyCode == '13'){
+			$("#subBtn").click();
+        }
+})
+
+
+    //提交
+    form.on('submit(LAY-user-login-submit)', function(obj){
+    	var loading = layer.load(2, {
+     		 shade: [0.8, '#393D49']
+          });
+      //请求登入接口
+      admin.req({
+        url: '${rc.contextPath}/userData/userLogin' //实际使用请改成服务端真实接口
+        ,data: obj.field
+        ,done: function(res){
+        	layer.close(loading);
+        	if(res.msg == "true"){
+        		 //登入成功的提示与跳转
+                layer.msg('登录成功', {
+                  offset: '15px'
+                  ,icon: 1
+                  ,time: 1000
+                }, function(){
+                  location.href = '${rc.contextPath}/welcome'; //后台主页
+                });
+        	}else{
+        		layer.msg(res.msg, {
+                    offset: '15px'
+                    ,icon: 2
+                    ,time: 1000
+                  })
+        	}
+        }
+      });
+      
+    });
+  });
+  </script>
+</body>
+</html>

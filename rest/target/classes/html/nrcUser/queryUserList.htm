@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
+  <link rel="stylesheet" href="${rc.contextPath}/layuiadmin/style/admin.css" media="all">
+  <style type="text/css">
+	/* 输入框长度 */
+	.layui-input {
+		width: 250px;
+	}
+	.layui-form-item .layui-input-inline {
+    width: 250px;
+	}
+	.layui-input-inline{
+	        width:192px;
+	        }
+	.layui-form-label {
+		width: 160px;
+	}
+	.only{
+		background-color: #efefef;
+	}
+  </style>
+</head>
+<body> 
+<div class="layui-card layadmin-header">
+    <div class="layui-breadcrumb" lay-filter="breadcrumb">
+      <a lay-href="">主页</a>
+      <a><cite>组件</cite></a>
+      <a><cite>数据表格</cite></a>
+      <a><cite>数据表格的重载</cite></a>
+    </div>
+  </div>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+      <div class="layui-col-md12">
+        <div class="layui-card">
+          <div class="layui-card-header">用户管理</div>
+          <div class="layui-card-body" >
+          <form  lay-filter="component-form-group" class="layui-form">
+            <div class="test-table-reload-btn" style="margin-bottom: 10px;">
+            	<div class="layui-form-item">
+		           <div class="layui-inline">
+		              <label class="layui-form-label">登录名：</label>
+		              <div class="layui-input-inline">
+		                 <input class="layui-input" name="loginName" id="loginName" autocomplete="off" placeholder="请输入登录名">
+		              </div>
+		            </div>
+		            <div class="layui-inline">
+		              <label class="layui-form-label">手机号：</label>
+		              <div class="layui-input-inline">
+		                <input class="layui-input" name="phoneNum" id="phoneNum" autocomplete="off" placeholder="请输入手机号">
+		              </div>
+		            </div>
+		            <div class="layui-inline">
+		              <label class="layui-form-label">邮箱：</label>
+		              <div class="layui-input-inline">
+		                <input class="layui-input" name="email" id="email" autocomplete="off" placeholder="请输入邮箱">
+		              </div>
+		            </div>
+		        </div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+		              <label class="layui-form-label">姓名：</label>
+		              <div class="layui-input-inline">
+		                 <input class="layui-input" name="realName" id="realName" autocomplete="off" placeholder="请输入姓名">
+		              </div>
+		            </div>
+		            <div class="layui-inline">
+		              <label class="layui-form-label">状态：</label>
+		              <div class="layui-input-inline">
+		              	<select name="statues" id="statues" class="layui-input">
+		              		<option value="">-请选择状态-</option>
+		              		<option value="Y">启用</option>
+		              		<option value="N">禁用</option>
+		              	</select>
+		              </div>
+		            </div>
+		            <div class="layui-inline">
+		            	 <a id="search" class="layui-btn" data-type="reload">查询</a>
+		            </div>
+		        </div>
+             </div>
+         </form>
+		 <script type="text/html" id="add">
+            <div class="layui-btn-container">
+              <a class="layui-btn" onclick="add()">添加用户</a>
+            </div>
+         </script>   
+         <table class="layui-hide" id="test-table-reload" lay-filter="test-table-reload"></table> 
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script src="${rc.contextPath}/layuiadmin/layui/layui.js"></script>  
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+  layui.config({
+    base: '${rc.contextPath}/layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'table', 'laydate'], function(){
+    var table = layui.table;
+    var $ = layui.$;
+    var form = layui.form;
+    var admin = layui.admin;
+    var laydate = layui.laydate;
+    
+    //日期时间范围
+      laydate.render({
+        elem: '#test-laydate-range-datetime'
+        ,type: 'datetime'
+        ,range: true
+      });
+  
+    //方法级渲染
+    table.render({
+      elem: '#test-table-reload'
+      ,url: "${rc.contextPath}/userData/getUserList"
+      ,defaultToolbar: ['filter']
+      ,toolbar:'#add'
+      ,cols: [[
+		 {checkbox: true, fixed: true}
+        ,{field:'id',align:'center', title: '序号', width:80, templet:'#zizeng'}
+        ,{field:'loginName',align:'center', title: '登录名'}
+        ,{field:'phoneNum',align:'center', title: '手机号'}
+        ,{field:'email',align:'center', title: '邮箱'}
+        ,{field:'realName',align:'center', title: '姓名'}
+        ,{field:'statues',align:'center', title: '状态'}
+        ,{title: '操作', align:'center', fixed: 'right', toolbar: '#barDemo' }
+      ]]
+      ,page: true
+      ,loading:true
+    });
+    
+    var $ = layui.$, active = {
+      reload: function(){
+        var loginName = $('#loginName');
+        var phoneNum = $('#phoneNum');
+        var email = $("#email");
+        var realName = $("#realName");
+        var statues = $("#statues");
+        //执行重载
+        table.reload('test-table-reload', {
+          page: {
+            curr: 1 //重新从第 1 页开始
+          }
+          ,where: {
+        	loginName: loginName.val(),
+        	phoneNum: phoneNum.val(),
+        	email: email.val(),
+        	realName: realName.val(),
+        	statues: statues.val()
+          }
+        });
+      }
+    };
+    
+  
+      //监听行工具事件
+	  table.on('tool(test-table-reload)', function(obj){
+	    var data = obj.data 
+	    ,layEvent = obj.event; 
+	    if(layEvent === 'detail'){	
+	    	parent.layui.index.openTabsPage("${rc.contextPath}/user/viewUserDetail?userId="+data.id
+	    			 , "查看用户")		// 查看用户
+	    }else if(layEvent === 'reset'){
+        	$.ajax({
+    			type : "POST",
+    			url : "${rc.contextPath}/userData/resetUserPwd?id="
+    					+ data.id,
+    			success : function(result) {
+    				if (result.msg == "true") {
+    					layer.msg('重置成功', {
+  		                  offset: '15px'
+  		                  ,icon: 1
+  		                  ,time: 1000
+  		                });
+    					$("#search").click();
+    				}else if(JSON.stringify(result).indexOf("无权限")>-1){
+    					layer.msg('无权限请申请', {
+  		                  offset: '15px'
+  		                  ,icon: 2
+  		                  ,time: 1000
+  		                })
+    				}else{
+    					layer.msg('重置失败', {
+    		                  offset: '15px'
+    		                  ,icon: 2
+    		                  ,time: 1000
+    		                })
+    				}
+    			}
+    		}); 
+	    }else if(layEvent === 'del'){
+	    	  var enableFlag;
+	     	  var text;
+	    	  if(data.statues == "启用"){	//启用
+	    		  text = "确定禁用吗？";
+	    		  enableFlag = "N";
+	    	  }
+	    	  if(data.statues == "禁用"){	//禁用
+	    		  text = "确定启用吗？";
+	    		  enableFlag = "Y";
+	    	  }
+	        layer.confirm(text
+	        		, {btn: ['确认'
+	        		         , '取消'
+	        		         ]
+	        		   , title: '提示'
+	        		   }
+	        		, function(index){
+			        	$.ajax({
+			    			type : "POST",
+			    			url : "${rc.contextPath}/userData/changeUserFlag?userId="
+			    					+ data.id+"&enableFlag="+enableFlag,
+			    			success : function(result) {
+			    				if (result) {
+			    					layer.msg('更改成功', {
+			  		                  offset: '15px'
+			  		                  ,icon: 1
+			  		                  ,time: 1000
+			  		                });
+			    					$("#search").click();
+			    				}else if(JSON.stringify(result).indexOf("无权限")>-1){
+			    					layer.msg('无权限请申请', {
+			  		                  offset: '15px'
+			  		                  ,icon: 2
+			  		                  ,time: 1000
+			  		                })
+			    				}else{
+			    					layer.msg('更改失败', {
+						                  offset: '15px'
+						                  ,icon: 2
+						                  ,time: 1000
+						                });
+			    				}
+			    			},
+			    			error : function() {
+			    				layer.msg('更改失败', {
+					                  offset: '15px'
+					                  ,icon: 2
+					                  ,time: 1000
+					                });
+			    			}
+			    		});
+			          layer.close(index);
+	        });
+	    }
+	  });
+      
+	//头工具栏事件
+	    table.on('toolbar(test-table-reload)', function(obj){
+	      var checkStatus = table.checkStatus(obj.config.id);
+	      switch(obj.event){
+	        case 'add':
+	        	
+	        break;
+	      };
+	    });
+    
+    $('.test-table-reload-btn .layui-btn').on('click', function(){
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+  
+  });
+  </script>
+<script type="text/html" id="zizeng">
+    {{d.LAY_TABLE_INDEX+1}}
+ </script>
+ <script type="text/html" id="barDemo">
+     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+     <a class="layui-btn layui-btn-success layui-btn-xs" lay-event="reset">重置密码</a>
+	{{#  if(d.statues == '禁用'){ }}
+		<a class="layui-btn  layui-btn-xs" lay-event="del">启用</a>
+	{{#  } else if(d.statues == '启用'){ }}
+		<a class="layui-btn  layui-btn-danger layui-btn-xs" lay-event="del">禁用</a>
+	{{#  } }}
+ </script>
+ <script type="text/javascript">
+ 	function add(){
+ 		 parent.layui.index.openTabsPage("${rc.contextPath}/user/saveUserDomain"
+ 				 , "新增用户")
+ 	}
+ </script>
+</body>
+</html>
